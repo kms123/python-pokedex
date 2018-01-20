@@ -4,4 +4,4 @@ poke-env/
 .idea/*
 node_modules/
 src/lib/
-client-secret.json
+python-pokedex-6adc34cac415.json
