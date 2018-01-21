@@ -6,8 +6,9 @@ before_install:
 - mkdir -p src/lib
 install:
 #- pip install -r requirements.txt -t src/lib/
+- pip install -r requirements_dev.txt
 script:
-- echo "No script to run."
+- pylint src/app
 deploy:
   provider: gae
   skip_cleanup: true
