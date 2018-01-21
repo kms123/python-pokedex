@@ -1,3 +1,4 @@
+""" API handlers for dealing with pokemon """
 import json
 
 import webapp2
@@ -6,7 +7,9 @@ from app.constants import API_USER_KEY_ASSOCIATIONS
 
 
 class GetPokemonByNumberHandler(webapp2.RequestHandler):
+    """ Get a specific pokemon's info by number """
     def get(self):
+        """ get """
         self.check_credentials()
         response = {
             'message': 'Pokemon repsonse',
@@ -15,6 +18,7 @@ class GetPokemonByNumberHandler(webapp2.RequestHandler):
         self.response.write(json.dumps(response))
 
     def check_credentials(self):
+        """ Check that valid credentials were provided on the request """
         api_user = self.request.get('apiUser')
         if not api_user:
             self.abort(400, 'apiUser is required.')

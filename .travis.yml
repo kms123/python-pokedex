@@ -5,10 +5,10 @@ before_install:
   -in python-pokedex-6adc34cac415.json.enc -out python-pokedex-6adc34cac415.json -d
 - mkdir -p src/lib
 install:
-#- pip install -r requirements.txt -t src/lib/
+- pip install -r requirements.txt -t src/lib/
 - pip install -r requirements_dev.txt
 script:
-- pylint src/app
+- cd src && pylint .
 deploy:
   provider: gae
   skip_cleanup: true

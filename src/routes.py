@@ -1,3 +1,5 @@
+""" Routes for API endpoints """
+
 from webapp2 import Route
 
 ROUTES = [

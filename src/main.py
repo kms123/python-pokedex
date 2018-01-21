@@ -1,3 +1,4 @@
+""" Main entry point for the appengine project, specified in app.yaml """
 import webapp2
 
 from routes import ROUTES
