@@ -4,6 +4,7 @@ import json
 import webapp2
 
 from app.constants import API_USER_KEY_ASSOCIATIONS
+from app.domain.pokemon import get_pokemon
 
 
 class GetPokemonByNumberHandler(webapp2.RequestHandler):
@@ -11,11 +12,12 @@ class GetPokemonByNumberHandler(webapp2.RequestHandler):
     def get(self):
         """ get """
         self.check_credentials()
-        response = {
-            'message': 'Pokemon repsonse',
-        }
+        # response = {
+        #     'message': 'Pokemon repsonse',
+        # }
+        response = get_pokemon(1)
         self.response.headers['Content-Type'] = 'application/json'
-        self.response.write(json.dumps(response))
+        self.response.write(response)
 
     def check_credentials(self):
         """ Check that valid credentials were provided on the request """
