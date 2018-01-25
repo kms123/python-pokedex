@@ -1,6 +1,4 @@
 """ API handlers for dealing with pokemon """
-import json
-
 import webapp2
 
 from app.constants import API_USER_KEY_ASSOCIATIONS
@@ -12,10 +10,10 @@ class GetPokemonByNumberHandler(webapp2.RequestHandler):
     def get(self):
         """ get """
         self.check_credentials()
-        # response = {
-        #     'message': 'Pokemon repsonse',
-        # }
-        response = get_pokemon(1)
+        number = self.request.get('number')
+        if not number:
+            self.abort(400, 'number is required')
+        response = get_pokemon(number)
         self.response.headers['Content-Type'] = 'application/json'
         self.response.write(response)
 
@@ -30,4 +28,4 @@ class GetPokemonByNumberHandler(webapp2.RequestHandler):
 
         expected_key = API_USER_KEY_ASSOCIATIONS.get(api_user)
         if not expected_key or not expected_key == api_key:
-            self.abort(403, 'Invalid apiUser/apiKey combination.')
+            self.abort(401, 'Invalid apiUser/apiKey combination.')

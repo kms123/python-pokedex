@@ -1,3 +1,4 @@
+""" Top-level app engine configs """
 import os
 from google.appengine.ext import vendor
 
