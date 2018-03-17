@@ -10,11 +10,16 @@ class GetPokemonByNumberHandler(webapp2.RequestHandler):
     def get(self):
         """ get """
         self.check_credentials()
-        number = self.request.get('number')
-        if not number:
-            self.abort(400, 'number is required')
-        response = get_pokemon(number)
         self.response.headers['Content-Type'] = 'application/json'
+        number_string = self.request.get('number')
+        if not number_string:
+            self.abort(400, 'number is required')
+        try:
+            number = int(number_string)
+        except ValueError:
+            number = None
+            self.abort(400, 'number must be an integer')
+        response = get_pokemon(number)
         self.response.write(response)
 
     def check_credentials(self):

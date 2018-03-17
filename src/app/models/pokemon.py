@@ -1,4 +1,6 @@
 """ Models for storing the info about a specific pokemon """
+import json
+
 from google.appengine.ext import ndb
 
 
@@ -13,8 +15,18 @@ class Pokemon(ndb.Model):
     @staticmethod
     def build_key(id_number):
         """ Build the key for the entity """
-        return ndb.Key('POKEMON-{}'.format(id_number))
+        return ndb.Key(Pokemon, 'POKEMON-{}'.format(id_number))
 
-    def get_by_id(self, id_number):
+    @classmethod
+    def get_by_id(cls, id_number):
         """ Get a pokemon model by pokemon ID number """
-        return self.build_key(id_number).get()
+        return cls.build_key(id_number).get()
+
+    def to_json(self):
+        """ return a json representation of the object """
+        pokemon = {
+            'name': self.name,
+            'id_number': self.id_number,
+            'updated': self.updated.strftime('%Y-%m-%d%H:%M:%S'),
+        }
+        return json.dumps(pokemon)
