@@ -5,4 +5,4 @@ poke-venv/
 node_modules/
 src/lib/
 python-pokedex-6adc34cac415.json
-.pyc
+*.pyc
