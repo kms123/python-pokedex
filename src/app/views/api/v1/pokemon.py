@@ -1,4 +1,6 @@
 """ API handlers for dealing with pokemon """
+import logging
+
 import webapp2
 
 from app.constants import API_USER_KEY_ASSOCIATIONS
@@ -19,6 +21,7 @@ class GetPokemonByNumberHandler(webapp2.RequestHandler):
         except ValueError:
             number = None
             self.abort(400, 'number must be an integer')
+        logging.info('Requesting pokemon #%s', number_string)
         response = get_pokemon(number)
         self.response.write(response)
 
@@ -34,3 +37,4 @@ class GetPokemonByNumberHandler(webapp2.RequestHandler):
         expected_key = API_USER_KEY_ASSOCIATIONS.get(api_user)
         if not expected_key or not expected_key == api_key:
             self.abort(401, 'Invalid apiUser/apiKey combination.')
+        logging.info('Valid authentication. Access granted.')
