@@ -1,13 +1,11 @@
 """ API handlers for dealing with pokemon """
 import logging
 
-import webapp2
-
-from app.constants import API_USER_KEY_ASSOCIATIONS
 from app.domain.pokemon import get_pokemon
+from app.views.api.v1.base import BaseHandler
 
 
-class GetPokemonByNumberHandler(webapp2.RequestHandler):
+class GetPokemonByNumberHandler(BaseHandler):
     """ Get a specific pokemon's info by number """
     def get(self):
         """ get """
@@ -24,17 +22,3 @@ class GetPokemonByNumberHandler(webapp2.RequestHandler):
         logging.info('Requesting pokemon #%s', number_string)
         response = get_pokemon(number)
         self.response.write(response)
-
-    def check_credentials(self):
-        """ Check that valid credentials were provided on the request """
-        api_user = self.request.get('apiUser')
-        if not api_user:
-            self.abort(400, 'apiUser is required.')
-        api_key = self.request.get('apiKey')
-        if not api_key:
-            self.abort(400, 'apiKey is required.')
-
-        expected_key = API_USER_KEY_ASSOCIATIONS.get(api_user)
-        if not expected_key or not expected_key == api_key:
-            self.abort(401, 'Invalid apiUser/apiKey combination.')
-        logging.info('Valid authentication. Access granted.')
