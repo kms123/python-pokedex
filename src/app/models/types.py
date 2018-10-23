@@ -1,9 +1,11 @@
+""" Models for storing info about types """
 import json
 
 from google.appengine.ext import ndb
 
 
 class Type(ndb.Model):
+    """ Information pertaining to a pokemon type """
     id_number = ndb.IndexProperty(required=True)
     name = ndb.StringProperty()
     created = ndb.DateTimeProperty(auto_now_add=True)
