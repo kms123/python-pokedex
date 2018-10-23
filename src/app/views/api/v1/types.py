@@ -1,3 +1,4 @@
+""" API handlers for dealing with pokemon """
 import logging
 
 from app.domain.types import get_type
@@ -9,15 +10,8 @@ class GetTypeByNumberHandler(BaseHandler):
     def get(self):
         """ get """
         self.check_credentials()
-        self.response.headers['Content-Type'] = 'application/json'
-        number_string = self.request.get('number')
-        if not number_string:
-            self.abort(400, 'number is required')
-        try:
-            number = int(number_string)
-        except ValueError:
-            number = None
-            self.abort(400, 'number must be an integer')
-        logging.info('Requesting type #%s', number_string)
+        self.set_headers()
+        number = self.validate_arg_id_number()
+        logging.info('Requesting type #%s', number)
         response = get_type(number)
         self.response.write(response)

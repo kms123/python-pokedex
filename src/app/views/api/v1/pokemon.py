@@ -10,15 +10,8 @@ class GetPokemonByNumberHandler(BaseHandler):
     def get(self):
         """ get """
         self.check_credentials()
-        self.response.headers['Content-Type'] = 'application/json'
-        number_string = self.request.get('number')
-        if not number_string:
-            self.abort(400, 'number is required')
-        try:
-            number = int(number_string)
-        except ValueError:
-            number = None
-            self.abort(400, 'number must be an integer')
-        logging.info('Requesting pokemon #%s', number_string)
+        self.set_headers()
+        number = self.validate_arg_id_number()
+        logging.info('Requesting pokemon #%s', number)
         response = get_pokemon(number)
         self.response.write(response)
