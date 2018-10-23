@@ -16,7 +16,7 @@ def get_pokemon(number):
         return pokemon.to_json()
 
 
-    logging.info('Requesting #%s from pokeapi.', number)
+    logging.info('Requesting pokemon #%s from pokeapi.', number)
     url = POKEAPI_BASE_DOMAIN.format(u'pokemon/{}'.format(number))
     response = urlfetch.fetch(url, deadline=15)
     response_object = json.loads(response.content)

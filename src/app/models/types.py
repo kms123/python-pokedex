@@ -6,7 +6,7 @@ from google.appengine.ext import ndb
 
 class Type(ndb.Model):
     """ Information pertaining to a pokemon type """
-    id_number = ndb.IndexProperty(required=True)
+    id_number = ndb.IntegerProperty(required=True)
     name = ndb.StringProperty()
     created = ndb.DateTimeProperty(auto_now_add=True)
     updated = ndb.DateTimeProperty(auto_now=True)
